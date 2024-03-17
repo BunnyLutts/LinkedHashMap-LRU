@@ -21,6 +21,17 @@ public:
 
 namespace sjtu {
 template<class T> class double_list{
+private:
+    struct Node{
+        T *data;
+        Node *prev;
+        Node *next;
+        Node() : data(nullptr), prev(nullptr), next(nullptr) {}
+        Node(const T &val) : data(new T(val)), prev(nullptr), next(nullptr) {}
+        ~Node() { delete data; }
+    };
+    Node *head;
+
 public:
 	/**
 	 * elements
@@ -32,14 +43,22 @@ public:
 	 * the follows are constructors and destructors
 	 * you can also add some if needed.
 	*/
-	double_list(){
-	}
-	double_list(const double_list<T> &other){
+	double_list() : head(new Node()) {}
+	double_list(const double_list<T> &other) : head(new Node()){
+        for (auto it = other.begin(); it!= other.end(); it++) {
+            insert_tail(*it);
+        }
 	}
 	~double_list(){
+        delete head;
 	}
 
 	class iterator{
+        friend class double_list<T>;
+    private:
+        Node *ptr;
+        iterator(Node *ptr) : ptr(ptr) {}
+
 	public:
     	/**
 		 * elements
@@ -50,50 +69,84 @@ public:
 		 * the follows are constructors and destructors
 		 * you can also add some if needed.
 		*/
-		iterator(){}
+		iterator() : ptr(nullptr) {}
 		iterator(const iterator &t){
+            ptr = t.ptr;
 		}
 		~iterator(){}
         /**
 		 * iter++
 		 */
 		iterator operator++(int) {
+            if (ptr == head) {
+                throw sjtu::index_out_of_bound();
+            }
+            iterator tmp(*this);
+            ptr = ptr->next;
+            return tmp;
 		}
         /**
 		 * ++iter
 		 */
 		iterator &operator++() {
+            if (ptr == head) {
+                throw sjtu::index_out_of_bound();
+            }
+            ptr = ptr->next;
+            return *this;
 		}
         /**
 		 * iter--
 		 */
 		iterator operator--(int) {
+            if (ptr->prev == head) {
+                throw sjtu::index_out_of_bound();
+            }
+            iterator tmp(*this);
+            ptr = ptr->prev;
+            return tmp;
 		}
         /**
 		 * --iter
 		 */
 		iterator &operator--() {
+            if (ptr->prev == head) {
+                throw sjtu::index_out_of_bound();
+            }
+            ptr = ptr->prev;
+            return *this;
 		}
 		/**
 		 * if the iter didn't point to a value
 		 * throw " invalid"
 		*/
 		T &operator*() const {
+            if (ptr->data == nullptr) {
+                throw sjtu::invalid_iterator();
+            }
+            return *ptr->data;
 		}
         /**
          * other operation
         */
 		T *operator->() const noexcept {
+            if (ptr->data == nullptr) {
+                throw sjtu::invalid_iterator();
+            }
+            return *ptr->data;
 		}
 		bool operator==(const iterator &rhs) const {
+            return ptr == rhs.ptr;
     	}
 		bool operator!=(const iterator &rhs) const {
+            return ptr != rhs.ptr;
 		}
 	};
 	/**
 	 * return an iterator to the beginning
 	 */
 	iterator begin(){
+        return iterator(head->next);
 	}
 	/**
 	 * return an iterator to the ending
@@ -101,6 +154,7 @@ public:
 	 * just after the last element.
 	 */
 	iterator end(){
+        return iterator(head);
 	}
 	/**
 	 * if the iter didn't point to anything, do nothing,
@@ -114,24 +168,50 @@ public:
 	 *  don't contain 2nd elememt.
 	*/
 	iterator erase(iterator pos){
+        if (pos.ptr->data == nullptr) return pos;
+        iterator ret(pos.ptr->next);
+        pos.ptr->prev->next = pos.ptr->next;
+        pos.ptr->next->prev = pos.ptr->prev;
+        delete pos.ptr;
+        return ret;
 	}
 
 	/**
 	 * the following are operations of double list
 	*/
 	void insert_head(const T &val){
+        Node *obj = new Node(val);
+        obj->next = head->next;
+        obj->prev = head;
+        obj->next->prev = obj->prev->next = obj;
 	}
+
 	void insert_tail(const T &val){
+        Node *obj = new Node(val);
+        obj->next = head;
+        obj->prev = head->prev;
+        obj->next->prev = obj->prev->next = obj;
 	}
+
 	void delete_head(){
+        Node *obj = head->next;
+        obj->prev->next = obj->next;
+        obj->next->prev = obj->prev;
+        delete obj;
 	}
+
 	void delete_tail(){
+        Node *obj = head->prev;
+        obj->prev->next = obj->next;
+        obj->next->prev = obj->prev;
+        delete obj;
 	}
 	/**
 	 * if didn't contain anything, return true, 
 	 * otherwise false.
 	 */
 	bool empty(){
+        return head->next == head;
 	}
 };
 

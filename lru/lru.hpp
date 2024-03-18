@@ -258,6 +258,10 @@ namespace sjtu {
             return Hash()(key) % capacity;
         }
 
+        bool eq(const Key &key1, const Key &key2) const {
+            return Equal()(key1, key2);
+        }
+
     public:
         /**
          * elements
@@ -294,7 +298,7 @@ namespace sjtu {
         }
 
         class iterator {
-            friend class hashmap<Key, T>;
+            friend class hashmap<Key, T, Hash, Equal>;
         private:
             typename List::iterator ptr;
             iterator(typename List::iterator ptr) : ptr(ptr) {}
@@ -369,7 +373,7 @@ namespace sjtu {
         iterator find(const Key &key) const {
             int index = pos(key);
             for (auto it = data[index].begin(); it!= data[index].end(); it++) {
-                if (it->first == key) {
+                if (eq(it->first, key)) {
                     return iterator(it);
                 }
             }
@@ -385,7 +389,7 @@ namespace sjtu {
             if (size >= capacity * load_factor) expand();
             int index = pos(value_pair.first);
             for (auto it = data[index].begin(); it!= data[index].end(); it++) {
-                if (it->first == value_pair.first) {
+                if (eq(it->first, value_pair.first)) {
                     it->second = value_pair.second;
                     return sjtu::pair<iterator, bool>(iterator(it), false);
                 }

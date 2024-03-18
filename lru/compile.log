@@ -1,60 +1,13 @@
 In file included from src.hpp:1,
-                 from 2.cpp:1:
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator::operator==(const sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator&) const’:
-lru.hpp:469:57: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  469 |             bool operator==(const iterator &rhs) const {}
-      |                                                         ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator::operator!=(const sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator&) const’:
-lru.hpp:470:57: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  470 |             bool operator!=(const iterator &rhs) const {}
-      |                                                         ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator::operator==(const sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator&) const’:
-lru.hpp:471:63: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  471 |             bool operator==(const const_iterator &rhs) const {}
-      |                                                               ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator::operator!=(const sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator&) const’:
-lru.hpp:472:63: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  472 |             bool operator!=(const const_iterator &rhs) const {}
-      |                                                               ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator::operator==(const sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator&) const’:
-lru.hpp:516:57: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  516 |             bool operator==(const iterator &rhs) const {}
-      |                                                         ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator::operator!=(const sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator&) const’:
-lru.hpp:517:57: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  517 |             bool operator!=(const iterator &rhs) const {}
-      |                                                         ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator::operator==(const sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator&) const’:
-lru.hpp:518:63: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  518 |             bool operator==(const const_iterator &rhs) const {}
-      |                                                               ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator::operator!=(const sjtu::linked_hashmap<Key, T, Hash, Equal>::const_iterator&) const’:
-lru.hpp:519:63: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  519 |             bool operator!=(const const_iterator &rhs) const {}
-      |                                                               ^
-lru.hpp: In member function ‘bool sjtu::linked_hashmap<Key, T, Hash, Equal>::empty() const’:
-lru.hpp:564:9: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  564 |         }
-      |         ^
-lru.hpp: In member function ‘size_t sjtu::linked_hashmap<Key, T, Hash, Equal>::size() const’:
-lru.hpp:570:9: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  570 |         }
-      |         ^
-lru.hpp: In member function ‘size_t sjtu::linked_hashmap<Key, T, Hash, Equal>::count(const Key&) const’:
-lru.hpp:595:9: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  595 |         }
-      |         ^
-lru.hpp: In member function ‘Matrix<int>* sjtu::lru::get(const Integer&) const’:
-lru.hpp:625:9: 警告：在有返回值的函数中未发现 return 语句 [-Wreturn-type]
-  625 |         }
-      |         ^
-lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const Integer, Integer>]’:
-lru.hpp:392:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Integer; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Integer>]’
-2.cpp:43:19:   required from here
-lru.hpp:150:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]
-  150 |                     throw sjtu::invalid_iterator();
+                 from 1.cpp:1:
+lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const int, int>]’:
+lru.hpp:421:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = int; T = int; Hash = std::hash<int>; Equal = std::equal_to<int>; value_type = sjtu::pair<const int, int>]’
+1.cpp:44:19:   required from here
+lru.hpp:163:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]
+  163 |                     throw sjtu::invalid_iterator();
       |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const Integer, Matrix<int> >]’:
-lru.hpp:392:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
-2.cpp:133:19:   required from here
-lru.hpp:150:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]
+lru.hpp:421:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
+lru.hpp:697:40:   required from ‘sjtu::pair<sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::linked_hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
+lru.hpp:754:23:   required from here
+lru.hpp:163:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]

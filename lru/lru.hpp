@@ -222,6 +222,14 @@ namespace sjtu {
             pos.ptr->next->prev = pos.ptr->prev->next = pos.ptr;
         }
 
+        void move_tail(iterator pos) {
+            pos.ptr->next->prev = pos.ptr->prev;
+            pos.ptr->prev->next = pos.ptr->next;
+            pos.ptr->next = head;
+            pos.ptr->prev = head->prev;
+            pos.ptr->next->prev = pos.ptr->prev->next = pos.ptr;
+        }
+
         /**
          * the following are operations of double list
          */
@@ -230,9 +238,7 @@ namespace sjtu {
             obj->next = head->next;
             obj->prev = head;
             obj->next->prev = obj->prev->next = obj;
-        }
-
-        void insert_tail(const T &val) {
+        } void insert_tail(const T &val) {
             Node *obj = new Node(val);
             obj->next = head;
             obj->prev = head->prev;
@@ -716,13 +722,14 @@ namespace sjtu {
         pair<iterator, bool> insert(const value_type &value) {
             auto result = super::insert(value);
             if (result.second) {
-                link.insert_head(value);
-                link.begin().bind(result.first.ptr);
-                return pair<iterator, bool>(iterator(link.begin()), true);
+                link.insert_tail(value);
+                auto it = --link.end();
+                it.bind(result.first.ptr);
+                return pair<iterator, bool>(iterator(it), true);
             } else {
                 typename List::iterator dual = result.first.ptr.dual();
-                link.move_head(dual);
-                return pair<iterator, bool>(iterator(link.begin()), false);
+                link.move_tail(dual);
+                return pair<iterator, bool>(iterator(--link.end()), false);
             }
         }
 
@@ -773,7 +780,7 @@ namespace sjtu {
         void save(const value_type &v) {
             map.insert(v);
             if (map.size() > capacity) {
-                map.remove(--map.end());
+                map.remove(map.begin());
             }
         }
         /**

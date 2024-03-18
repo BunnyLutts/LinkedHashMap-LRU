@@ -123,6 +123,7 @@ int main(){
 #ifdef _OUTPUT_
     freopen("1.out","w",stdout);
 #endif
+
     integer_hashmap_memcheck_tester();
     std::cout << c[7] << std::endl;
 }

@@ -32,10 +32,11 @@ namespace sjtu {
             Node(const T &val) : data(new T(val)), prev(nullptr), next(nullptr), dual(nullptr) {}
 
             void bind(Node *d) {
-                if (d->dual || dual) {
+                if (d->dual) {
                     throw runtime_error();
                 }
-                if (data) delete data;
+                if (dual) dual->dual = nullptr;
+                else if (data) delete data;
                 data = d->data;
                 dual = d;
                 d->dual = this;
@@ -318,6 +319,7 @@ namespace sjtu {
         hashmap &operator=(const hashmap &other) {
             capacity = other.capacity;
             load_factor = other.load_factor;
+            size = other.size;
             delete[] data;
             data = new List[capacity];
             for (int i=0; i<capacity; i++) {
@@ -379,7 +381,7 @@ namespace sjtu {
         /**
          * you need to expand the hashmap dynamically
          */
-        void expand() {
+        virtual void expand() {
             hashmap tmp(capacity * 2, load_factor);
             for (int i = 0; i < capacity; i++) {
                 for (auto it = data[i].begin(); it!= data[i].end(); it++) {
@@ -424,8 +426,10 @@ namespace sjtu {
                 }
             }
             data[index].insert_head(value_pair);
+            size++;
             return sjtu::pair<iterator, bool>(iterator(data[index].begin()), true);
         }
+
         /**
          * the value_pair exists, remove and return true
          * otherwise, return false
@@ -434,6 +438,7 @@ namespace sjtu {
             iterator it = find(key);
             if (it==end()) return false;
             data[pos(key)].erase(it.ptr);
+            size--;
             return true;
         }
     };
@@ -614,13 +619,22 @@ namespace sjtu {
         linked_hashmap() : super() {
         }
         linked_hashmap(const linked_hashmap &other) : super(other), link(other.link){
+            redual();
         }
         ~linked_hashmap() {
         }
         linked_hashmap &operator=(const linked_hashmap &other) {
             super::operator=(other);
             link = other.link;
+            redual();
             return *this;
+        }
+
+        void redual() {
+            for (auto it=link.begin(); it!=link.end(); it++) {
+                auto hashit = super::find(it->first);
+                it.bind(hashit.ptr);
+            }
         }
 
         /**
@@ -683,6 +697,12 @@ namespace sjtu {
         size_t size() const {
             return super::size;
         }
+
+        virtual void expand() override{
+            super::expand();
+            redual();
+        }
+
         /**
          * insert the value_piar
          * if the key of the value_pair exists in the map

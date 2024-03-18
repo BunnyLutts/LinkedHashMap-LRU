@@ -1,13 +1,14 @@
 In file included from src.hpp:1,
-                 from 1.cpp:1:
-lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const int, int>]’:
-lru.hpp:421:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = int; T = int; Hash = std::hash<int>; Equal = std::equal_to<int>; value_type = sjtu::pair<const int, int>]’
-1.cpp:44:19:   required from here
+                 from 4.cpp:1:
+lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const Integer, Matrix<int> >]’:
+lru.hpp:422:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
+lru.hpp:700:40:   required from ‘sjtu::pair<sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::linked_hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
+lru.hpp:757:23:   required from here
 lru.hpp:163:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]
   163 |                     throw sjtu::invalid_iterator();
       |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const Integer, Matrix<int> >]’:
-lru.hpp:421:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
-lru.hpp:697:40:   required from ‘sjtu::pair<sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::linked_hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = Integer; T = Matrix<int>; Hash = Hash; Equal = Equal; value_type = sjtu::pair<const Integer, Matrix<int> >]’
-lru.hpp:754:23:   required from here
+lru.hpp: In instantiation of ‘T* sjtu::double_list<T>::iterator::operator->() const [with T = sjtu::pair<const int, int>]’:
+lru.hpp:422:24:   required from ‘sjtu::pair<sjtu::hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = int; T = int; Hash = std::hash<int>; Equal = std::equal_to<int>; value_type = sjtu::pair<const int, int>]’
+lru.hpp:700:40:   required from ‘sjtu::pair<sjtu::linked_hashmap<Key, T, Hash, Equal>::iterator, bool> sjtu::linked_hashmap<Key, T, Hash, Equal>::insert(const value_type&) [with Key = int; T = int; Hash = std::hash<int>; Equal = std::equal_to<int>; value_type = sjtu::pair<const int, int>]’
+4.cpp:46:19:   required from here
 lru.hpp:163:21: 警告：‘throw’ will always call ‘terminate’ [-Wterminate]

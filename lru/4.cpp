@@ -44,13 +44,21 @@ void simple_linked_hashmap_tester(){
     if(STATUS)std::cout<<c[3];
     for(int i=0;i<n;i++){
         map.insert(value_type(i,i));
+        if (i >= 4) {
+            std::cout << map.at(4) << std::endl;
+        }
     }
     if(STATUS)std::cout<<std::endl<<c[4];//test remove
 
+    int cnt = 0;
     for(mp::iterator it = map.begin();it!=map.end();it++){
+        cnt++;
 	    mp::iterator tmpit = it;
         it++;
         map.remove(tmpit);
+        if (!map.find(4).ptr.ptr->dual) {
+            std::cout << "Here!\n" << std::endl;
+        }
         if(it == map.end()){
             break;
         }
@@ -60,6 +68,7 @@ void simple_linked_hashmap_tester(){
         }
     }
 
+    std::cout << map.at(4) << std::endl;
     for(int i=0;i<n;i+=4){
         map.insert(value_type(i,4*i));
     }

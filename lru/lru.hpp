@@ -271,7 +271,7 @@ namespace sjtu {
          * if didn't contain anything, return true,
          * otherwise false.
          */
-        bool empty() {
+        bool empty() const {
             return head->next == head;
         }
     };
@@ -692,7 +692,7 @@ namespace sjtu {
          * otherwise false.
          */
         bool empty() const {
-            return link.empty();
+            return size()==0;
         }
 
         void clear() {
@@ -787,7 +787,9 @@ namespace sjtu {
          * return a pointer contain the value
          */
         Matrix<int> *get(const Integer &v) {
-            return &map.at(v);
+            auto ptr = &map.at(v);
+            map.insert(pair<const Integer, Matrix<int>>(v, *ptr));
+            return ptr;
         }
         /**
          * just print everything in the memory

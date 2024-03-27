@@ -60,6 +60,7 @@ void simple_linked_hashmap_tester(){
         }
     }
 
+    std::cout << map.at(4) << std::endl;
     for(int i=0;i<n;i+=4){
         map.insert(value_type(i,4*i));
     }
